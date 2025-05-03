@@ -64,7 +64,7 @@ int main(void) {
                 }
             }else if (strcmp(string, "show") == 0){
                     printf("---------------------------------------------------------------------"
-                            "\n размер вашего множества: %d\n", decimal_set[0] != 0 ? successful_inputs : 0);
+                            "\n размер вашего множества: %d\n", successful_inputs);
                     for (int k = 0; k < successful_inputs; k++) {
                         double var = decimal_set[k];
                         printf("\n Элемент %d в десятичном представлении: %f", k+1, decimal_set[k]);
