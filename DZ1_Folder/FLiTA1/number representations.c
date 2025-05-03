@@ -3,6 +3,14 @@
 #define BITS_IN_BYTE 8
 #define TRUE 1
 #define FALSE 0
+#define LARGE_ENOUGH 50
+
+typedef struct all_representations
+    {
+        double dec_repres;
+        char bin_repres[LARGE_ENOUGH];
+    }number;
+
 
 double fractional_part_getting(double dbl_number)
 {
@@ -12,6 +20,7 @@ double fractional_part_getting(double dbl_number)
 
 char *double_to_bin_repres(double dec_repres, char *empty_bin_repres)
 {
+    empty_bin_repres[0] = '\0';
     double integer_part;
     double fractional_part = modf(dec_repres, &integer_part);
 
@@ -28,7 +37,6 @@ char *double_to_bin_repres(double dec_repres, char *empty_bin_repres)
     for (int i = sizeof(int) - 1; i >= 0; i--) //integer part to binary representation
     {
         int current_bit;
-
         for (int k = BITS_IN_BYTE - 1; k >= 0; k--)//big-endian for bits and little-endian for bytes
         {
             current_bit = (*(int_part_byte + i) >> k) & 1;
@@ -40,7 +48,9 @@ char *double_to_bin_repres(double dec_repres, char *empty_bin_repres)
             {
                 //printf("%d", current_bit); - was actual when there was no structure in int main()
                 if (current_bit == 1) //instead
+                {
                     strcat(empty_bin_repres, "1");
+                }
                 else
                     strcat(empty_bin_repres, "0");
             }
@@ -49,7 +59,6 @@ char *double_to_bin_repres(double dec_repres, char *empty_bin_repres)
     }
     if (if_once_unit_faced == FALSE)
         puts("0");
-
     //fputs(",", stdout); //point between int and frac - was actual when there was no structure in int main()
     strcat(empty_bin_repres, ","); //instead
 

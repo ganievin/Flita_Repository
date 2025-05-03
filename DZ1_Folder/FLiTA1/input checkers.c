@@ -13,7 +13,7 @@ void Clear_Input_Buffer(void) {    // Просто съедаем символы, которые не смогла 
 char Forbidden_Symbols_Check(void) {
     char cleaning_cursor;
     while ((cleaning_cursor = getchar()) != '\n' && cleaning_cursor != EOF) {
-        if (cleaning_cursor != '\t' & cleaning_cursor != ',') {
+        if (cleaning_cursor != '\t' && cleaning_cursor != ',') {
             Clear_Input_Buffer();
             return FORBIDDEN_SYMBOL_EXISTS;
         }
@@ -21,12 +21,13 @@ char Forbidden_Symbols_Check(void) {
     return FORBIDDEN_SYMBOL_DOESNT_EXISTS;
 }
 
-char Duplicate_Check (unsigned int successful_inputs_in_d_set, double inputed_value, double *decimal_set_pointer)
-            {
-                for (unsigned int k = 0; k < successful_inputs_in_d_set; k++) {
-                    if (inputed_value == decimal_set_pointer[k]) {
-                        return DUPLICATE_EXISTS;
-                    }
-                }
-                return NO_DUPLICATE;
-            }
+char Duplicate_Check(unsigned int successful_inputs, double inputed_value, number *num_set_pointer)
+{
+    for (int k = 0; k < successful_inputs; k++) {
+        if (inputed_value == num_set_pointer[k].dec_repres) {
+            return DUPLICATE_EXISTS;
+        }
+    }
+    return NO_DUPLICATE;
+}
+

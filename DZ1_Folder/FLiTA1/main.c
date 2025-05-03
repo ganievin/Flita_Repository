@@ -10,6 +10,7 @@
 
 #define YES 1
 #define NO 0
+#define LARGE_ENOUGH 50
 
 int main(void) {
     setlocale(LC_ALL, "Russian");
@@ -17,14 +18,20 @@ int main(void) {
          "      a) с плавающей зап€той\n"
          "      б) целые\n"
          "2) ¬ведите show дл€ показа элементов\n"
-         "3) ¬ведите swap дл€ замены элемента\n"
-         "4) ¬ведите exit дл€ выхода\n");
+         //"3) ¬ведите swap дл€ замены элемента\n"
+         "3) ¬ведите exit дл€ выхода\n");
+
+    typedef struct all_representations
+    {
+        double dec_repres;
+        char *bin_repres;
+    }number;
 
     double input;
     unsigned int successful_inputs = 0;
 
-    double* decimal_set = malloc(sizeof(double));
-    if(decimal_set == NULL)
+    number *num_set = malloc(sizeof(number));
+    if(num_set == NULL)
             return 0;
 
     char end_of_input = NO;
@@ -34,21 +41,31 @@ int main(void) {
                 puts("\n***Forbidden symbol***\n");
                 continue;
             }
-            if (Duplicate_Check(successful_inputs, input, decimal_set) == DUPLICATE_EXISTS) {
+
+            if (Duplicate_Check(successful_inputs, input, num_set) == DUPLICATE_EXISTS) {
                 puts("\n***Duplicate***\n");
                 continue;
             }
 
-            double* temporary_set = malloc( sizeof(double) * (successful_inputs + 1) );
+            number* temporary_set = (number *)malloc(sizeof(number) * (successful_inputs + 1));
             if(temporary_set == NULL)
                 return 0;
 
             for (unsigned int k = 0; k < successful_inputs; k++)
-                temporary_set[k] = decimal_set[k];
+                temporary_set[k] = num_set[k];
 
-            temporary_set[successful_inputs] = input;
-            free(decimal_set);
-            decimal_set = temporary_set;
+            free(num_set);
+            temporary_set[successful_inputs].dec_repres = input;
+            num_set = temporary_set;
+
+            num_set[successful_inputs].bin_repres = malloc(LARGE_ENOUGH * sizeof(char));
+            if (num_set[successful_inputs].bin_repres == NULL) {
+                return 0;
+            }
+
+            num_set[successful_inputs].bin_repres = double_to_bin_repres(num_set[successful_inputs].dec_repres,
+                                                                         num_set[successful_inputs].bin_repres);
+
             printf("%d-й элемент множества записан\n\n", successful_inputs + 1);
             successful_inputs++;
 
@@ -66,13 +83,12 @@ int main(void) {
                     printf("---------------------------------------------------------------------"
                             "\n размер вашего множества: %d\n", successful_inputs);
                     for (int k = 0; k < successful_inputs; k++) {
-                        printf("\n Ёлемент %d в дес€тичном представлении: %f", k+1, decimal_set[k]);
-                        printf("\n Ёлемент %d в двоичном представлении: ", k+1);
-                        double_to_bin_repres(decimal_set[k]);
+                        printf("\n Ёлемент %d в дес€тичном представлении: %f", k+1, num_set[k].dec_repres);
+                        printf("\n Ёлемент %d в двоичном представлении: %s\n", k+1, num_set[k].bin_repres);
                     }
 
                      puts("---------------------------------------------------------------------");
-            }else if (strcmp(string, "swap") == 0) {
+            }/*else if (strcmp(string, "swap") == 0) {
                 puts(" акой элемент заменить?");
                 int elem_num_for_swap;
                 scanf("%d", &elem_num_for_swap);
@@ -87,7 +103,7 @@ int main(void) {
 
                 double swapping_value;
                 scanf("%lf", &swapping_value);
-                while (Duplicate_Check(successful_inputs, swapping_value, decimal_set) == DUPLICATE_EXISTS
+                while (Duplicate_Check(successful_inputs, swapping_value, num_set) == DUPLICATE_EXISTS
                        || Forbidden_Symbols_Check() == FORBIDDEN_SYMBOL_EXISTS)
                 {
                     puts("Error! Dublicate or forbidden symbol. Try again:\n");
@@ -96,10 +112,10 @@ int main(void) {
                 }
 
                 printf("%d-й элемент перезаписан с %lf на %lf\n", elem_num_for_swap,
-                       decimal_set[elem_num_for_swap - 1], swapping_value);
-                decimal_set[elem_num_for_swap - 1] = swapping_value;
+                       num_set[elem_num_for_swap - 1], swapping_value);
+                num_set[elem_num_for_swap - 1].dec_repres = swapping_value;
 
-            } else {
+            }*/ else {
                 Clear_Input_Buffer();
                 puts("\n***ERROR: not read***\n");
                 continue;
@@ -109,6 +125,6 @@ int main(void) {
 
     } while (end_of_input == NO);
 
-    free(decimal_set);
+    free(num_set);
     return 0;
 }
