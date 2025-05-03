@@ -29,7 +29,7 @@ void double_to_bin_repres(double number)
     {
         int current_bit;
 
-        for (int k = BITS_IN_BYTE - 1; k >= 0; k--)
+        for (int k = BITS_IN_BYTE - 1; k >= 0; k--)//big-endian for bits and little-endian for bytes
         {
             current_bit = (*(int_part_byte + i) >> k) & 1;
             if (current_bit == 1)
@@ -37,11 +37,12 @@ void double_to_bin_repres(double number)
             if (if_once_unit_faced == TRUE)
                 printf("%d", current_bit);
         }
+
     }
     if (if_once_unit_faced == FALSE)
         puts("0");
 
-    fputs(".", stdout); //point between int and frac
+    fputs(",", stdout); //point between int and frac
 
     double var1 = fractional_part; //
     int var2;
