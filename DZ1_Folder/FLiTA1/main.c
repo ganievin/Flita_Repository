@@ -66,10 +66,9 @@ int main(void) {
                     printf("---------------------------------------------------------------------"
                             "\n размер вашего множества: %d\n", successful_inputs);
                     for (int k = 0; k < successful_inputs; k++) {
-                        double var = decimal_set[k];
                         printf("\n Элемент %d в десятичном представлении: %f", k+1, decimal_set[k]);
                         printf("\n Элемент %d в двоичном представлении: ", k+1);
-                        double_to_bin_repres(var);
+                        double_to_bin_repres(decimal_set[k]);
                     }
 
                      puts("---------------------------------------------------------------------");
@@ -88,12 +87,11 @@ int main(void) {
 
                 double swapping_value;
                 scanf("%lf", &swapping_value);
-                while (Duplicate_Check(successful_inputs, swapping_value, decimal_set) == DUPLICATE_EXISTS || Forbidden_Symbols_Check() == FORBIDDEN_SYMBOL_EXISTS)
+                while (Duplicate_Check(successful_inputs, swapping_value, decimal_set) == DUPLICATE_EXISTS
+                       || Forbidden_Symbols_Check() == FORBIDDEN_SYMBOL_EXISTS)
                 {
-                    if (Duplicate_Check(successful_inputs, swapping_value, decimal_set) == DUPLICATE_EXISTS) {
-                        puts("Error! Dublicate or forbidden symbol. Try again:\n");
-                        Clear_Input_Buffer();
-                    }
+                    puts("Error! Dublicate or forbidden symbol. Try again:\n");
+                    Clear_Input_Buffer();
                     scanf("%lf", &swapping_value);
                 }
 
