@@ -1,0 +1,189 @@
+# depslib dependency file v1.0
+1746109873 source:c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\main.c
+	"graphviz/cgraph.h"
+	"graphviz/gvc.h"
+	<stdio.h>
+	<string.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\cgraph.h
+	"cdt.h"
+	<inttypes.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+	<stdio.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\cdt.h
+	<stddef.h>
+	<string.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\gvc.h
+	<stdbool.h>
+	"types.h"
+	"gvplugin.h"
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\types.h
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdint.h>
+	<assert.h>
+	<signal.h>
+	"geom.h"
+	"gvcext.h"
+	"pathgeom.h"
+	"textspan.h"
+	"cgraph.h"
+	"usershape.h"
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\geom.h
+	"arith.h"
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\arith.h
+	<limits.h>
+	<math.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\gvcext.h
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\pathgeom.h
+	<stddef.h>
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\textspan.h
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\cgraph.h
+	"cdt.h"
+	<inttypes.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+	<stdio.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\cdt.h
+	<stddef.h>
+	<string.h>
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\usershape.h
+	"cdt.h"
+	<stdbool.h>
+	<stdio.h>
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Информатика\Программирование на c\flita_dz2\graphviz\gvplugin.h
+	"gvcext.h"
+
+1745602317 source:c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\main.c
+	"graphviz/cgraph.h"
+	"graphviz/gvc.h"
+	<stdio.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\cgraph.h
+	"cdt.h"
+	<inttypes.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+	<stdio.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\cdt.h
+	<stddef.h>
+	<string.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\gvc.h
+	<stdbool.h>
+	"types.h"
+	"gvplugin.h"
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\types.h
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdint.h>
+	<assert.h>
+	<signal.h>
+	"geom.h"
+	"gvcext.h"
+	"pathgeom.h"
+	"textspan.h"
+	"cgraph.h"
+	"usershape.h"
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\geom.h
+	"arith.h"
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\arith.h
+	<limits.h>
+	<math.h>
+
+1745141772 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\gvcext.h
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\pathgeom.h
+	<stddef.h>
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\textspan.h
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\usershape.h
+	"cdt.h"
+	<stdbool.h>
+	<stdio.h>
+
+1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\gvplugin.h
+	"gvcext.h"
+
+1747511861 source:c:\users\redonnukes\flita_dz\dz3\main.c
+	"graphviz/cgraph.h"
+	"graphviz/gvc.h"
+	<stdio.h>
+	<string.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\cgraph.h
+	"cdt.h"
+	<inttypes.h>
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+	<stdio.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\cdt.h
+	<stddef.h>
+	<string.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\gvc.h
+	<stdbool.h>
+	"types.h"
+	"gvplugin.h"
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\types.h
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdint.h>
+	<assert.h>
+	<signal.h>
+	"geom.h"
+	"gvcext.h"
+	"pathgeom.h"
+	"textspan.h"
+	"cgraph.h"
+	"usershape.h"
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\geom.h
+	"arith.h"
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\arith.h
+	<limits.h>
+	<math.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\gvcext.h
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\pathgeom.h
+	<stddef.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\textspan.h
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\usershape.h
+	"cdt.h"
+	<stdbool.h>
+	<stdio.h>
+
+1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\gvplugin.h
+	"gvcext.h"
+
