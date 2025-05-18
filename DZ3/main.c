@@ -143,7 +143,7 @@ int txt_to_png(GVC_t *gvc)
         "graph connected\n"
         "--------------------------------------------------------------------------\n")
     : puts("\n--------------------------------------------------------------------------\n"
-           "graph not connected: there's no edges between blue node and every red node\n"
+           "graph not connected: there's no any paths between blue node and every red node\n"
            "--------------------------------------------------------------------------\n");
 
     fclose(graph_file);
