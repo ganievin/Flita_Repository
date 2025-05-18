@@ -8,6 +8,34 @@
 #define LONG_ENOUGH 100
 #define LONG 50
 
+//copied DFC code, raw
+void DFS(struct Graph* graph, int vertex) {
+    //creating an array which maintaining string names of visited nodes (names has length 2 - one character and \0)
+    char **visited = (char **)malloc(nodes_num_in_graph * sizeof(curr_symb));
+    struct node* adjList = graph->adjLists[vertex];
+    struct node* temp = adjList;
+
+    graph->visited[vertex] = 1;
+    printf("Visited %d \n", vertex);
+
+    while(temp!=NULL) {
+        int connectedVertex = temp->vertex;
+
+        if(graph->visited[connectedVertex] == 0) {
+            DFS(graph, connectedVertex);
+        }
+        temp = temp->next;
+    }
+}
+
+   /*just tested some features, code only for reference
+    Agnode_t *n = NULL;
+    n = agfstnode(g);
+    for (int i = 0; i<2; i++) {
+        agsafeset(n, "color", "red", "");
+        n = agnxtnode(g,n);
+    }*/
+
 int txt_to_png(GVC_t *gvc)
 {
     Agraph_t *g = agopen("GRAPH", Agundirected, NULL);
@@ -44,38 +72,6 @@ int txt_to_png(GVC_t *gvc)
     }
     fclose(graph_file);
 
-    //creating an array which maintaining string names of visited nodes (names has length 2 - one character and \0)
-    char **visited = (char **)malloc(nodes_num_in_graph * sizeof(curr_symb));
-
-
-    //copied DFC code, raw
-    void DFS(struct Graph* graph, int vertex) {
-        struct node* adjList = graph->adjLists[vertex];
-        struct node* temp = adjList;
-
-        graph->visited[vertex] = 1;
-        printf("Visited %d \n", vertex);
-
-        while(temp!=NULL) {
-            int connectedVertex = temp->vertex;
-
-            if(graph->visited[connectedVertex] == 0) {
-                DFS(graph, connectedVertex);
-            }
-            temp = temp->next;
-        }
-    }
-
-   //just tested some features, code only for reference
-    Agnode_t *n = NULL;
-    n = agfstnode(g);
-    for (int i = 0; i<2; i++) {
-        agsafeset(n, "color", "red", "");
-        n = agnxtnode(g,n);
-    }
-
-
-    //previous code
     gvLayout (gvc, g, "dot");
 
     char png_save_path[LONG_ENOUGH] = "./lists_of_edges_png/";
