@@ -2,6 +2,7 @@
 #include "graphviz/gvc.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #define TRUE 1
 #define FALSE 0
 #define ONE_CHAR_AND_STR_END 2
@@ -9,53 +10,97 @@
 #define LONG 50
 
 
-//copied DFC code, raw, will use agnnodes(g) for node_num
-int Depth_first_search(Agraph_t* g, int nodes_num, Agnode_t* head_node) {
-    //creating an array which maintaining string names of visited nodes (names has length 2 - one character and \0)
-    //visit visited_arr[] = (visit *)malloc(nodes_num * sizeof(visit));
-    //for (int k = 0; k < nodes_num; k++)
-        //visited_arr[k] -> is_visited = FALSE;
-    int visited = 1; //already visited first_node
+typedef struct node_status
+{
+        Agnode_t *node;
+        bool status;
+        Agnode_t **adj_nodes;
+}node_st;
 
-    if (head_node == NULL)
+Agnode_t **adj_list_maker(Agraph_t *g, Agnode_t *node)
+{
+    int i, k;
+    Agnode_t *current_node = agfstnode(g);
+    Agnode_t **adj_list = (Agnode_t **)malloc(agnnodes(g)*sizeof(Agnode_t *));
+
+    for (i = 0; i < agnnodes(g); i++)
+        adj_list[i] = NULL;
+
+    for (k = 0; current_node; current_node = agnxtnode(g, current_node))
     {
-        head_node = agfstnode(g);
+        if (agedge(g,node,current_node,NULL,FALSE) && (node != current_node))
+        {
+            adj_list[k] = current_node;
+            k++;
+        }
     }
-    //"head" and "tail" in context of the edges
-    Agnode_t *tail_node = agfstnode(g);
+    return adj_list;
+}
 
-    for (; head_node;) {
-        for (; tail_node;) {
-            if (agedge(g,head_node,tail_node,NULL,FALSE) && (head_node != tail_node))
+node_st ** create_node_list (Agraph_t *g)
+{
+    int nodes_num = agnnodes(g);
+    int i;
+    Agnode_t *current_node = agfstnode(g);
+    node_st **node_list = (node_st **)malloc(nodes_num*sizeof(node_st *));
+    for (i = 0; i < nodes_num && current_node; i++, current_node = agnxtnode(g, current_node))
+    {
+        node_list[i] = (node_st *)malloc(sizeof(node_st));
+        node_list[i] -> node = current_node;
+        node_list[i] -> status = false;
+        node_list[i] -> adj_nodes = adj_list_maker(g, current_node);
+    }
+    return node_list;
+}
+
+//copied DFC code, raw, will use agnnodes(g) for node_num
+int DFS(Agraph_t* g, node_st **node_list, node_st *start_node)
+{
+    int nodes_num = agnnodes(g);
+    int i, j, k;
+        for (i = 0; i < nodes_num; i++)
+        {
+            if (node_list[i] == start_node)
             {
-                visited += Depth_first_search(g, nodes_num, tail_node);
-                tail_node = agnxtnode(g, tail_node);
+                node_list[i]->status = true;
+            }
+        }
+
+        node_st *neighbour = NULL;
+        for (j = 0; j < nodes_num; j++)
+        {
+            neighbour = node_list[j];
+            if (neighbour -> status == true)
+            {
+                continue;
             }
             else
             {
-                tail_node = agnxtnode(g, tail_node);
+                for (k = 0; k < nodes_num; k++)
+                {
+                    if (start_node -> adj_nodes[k] == neighbour -> node)
+                    {
+                        DFS(g, node_list, neighbour);
+                    }
+                }
             }
         }
-        if (visited == nodes_num)
+    int visited = 0;
+    for (int p = 0; p < nodes_num; p++)
         {
-            puts("graph is connected!");
-            return visited;
+            if (node_list[p] -> status == true)
+            {
+                visited++;
+                agsafeset(node_list[p] -> node, "color", "black", "");
+            }
+            else
+            {
+                agsafeset(node_list[0] -> node, "color", "blue", "");
+                agsafeset(node_list[p] -> node, "color", "red", "");
+            }
         }
-        head_node = agnxtnode(g, head_node);
-    }
-    puts("graph is not connected");
     return visited;
-    //RED COLORS BLABLA
-    //return NULL
 }
-
-   /*just tested some features, code only for reference
-    Agnode_t *n = NULL;
-    n = agfstnode(g);
-    for (int i = 0; i<2; i++) {
-        agsafeset(n, "color", "red", "");
-        n = agnxtnode(g,n);
-    }*/
 
 int txt_to_png(GVC_t *gvc)
 {
@@ -65,7 +110,7 @@ int txt_to_png(GVC_t *gvc)
     char file_name[LONG];
     FILE *graph_file = NULL;
 
-    puts("\nenter file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window\n");
+    puts("\nENTER file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window:");
     while(1)
     {
         scanf("%49s", file_name);
@@ -91,7 +136,17 @@ int txt_to_png(GVC_t *gvc)
            agedge(g, tail_node, head_node, NULL, TRUE);
            fgetc(graph_file);//пропускаем ровно одну табул€цию в тесктовом файле
     }
-    Depth_first_search(g, agnnodes(g), agfstnode(g));
+
+    node_st** node_list = create_node_list(g);
+    int visited_nods = DFS(g, node_list, node_list[0]);
+    visited_nods == agnnodes(g) ?
+    puts("\n--------------------------------------------------------------------------\n"
+        "graph connected\n"
+        "--------------------------------------------------------------------------\n")
+    : puts("\n--------------------------------------------------------------------------\n"
+           "graph not connected: there's no edges between blue node and every red node\n"
+           "--------------------------------------------------------------------------\n");
+
     fclose(graph_file);
 
     gvLayout (gvc, g, "dot");
@@ -104,7 +159,9 @@ int txt_to_png(GVC_t *gvc)
     gvRenderFilename (gvc, g, "png", png_save_path);
     gvFreeLayout(gvc, g);
     agclose(g);
-    printf("Rendered and saved as %s.png\n", file_name);
+    printf("-------------------------------------------------------------------------\n"
+           "Rendered and saved as %s.png\n"
+           "--------------------------------------------------------------------------\n\n\n", file_name);
     return 1;
 }
 

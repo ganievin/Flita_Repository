@@ -128,11 +128,12 @@
 1745141773 c:\users\redonnukes\desktop\По учебе\Флита\flita_dz2\graphviz\gvplugin.h
 	"gvcext.h"
 
-1747591400 source:c:\users\redonnukes\flita_dz\dz3\main.c
+1747608574 source:c:\users\redonnukes\flita_dz\dz3\main.c
 	"graphviz/cgraph.h"
 	"graphviz/gvc.h"
 	<stdio.h>
 	<string.h>
+	<stdbool.h>
 
 1747511861 c:\users\redonnukes\flita_dz\dz3\graphviz\cgraph.h
 	"cdt.h"
