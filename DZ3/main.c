@@ -4,7 +4,7 @@
 #include <string.h>
 #define TRUE 1
 #define FALSE 0
-#define NODES_NUMBER_IN_ONE_STRING 2
+#define ONE_CHAR_AND_STR_END 2
 #define LONG_ENOUGH 100
 #define LONG 50
 
@@ -32,7 +32,7 @@ int txt_to_png(GVC_t *gvc)
             puts("No such file. Try again.\n");
     }
 
-    char curr_symb[NODES_NUMBER_IN_ONE_STRING];
+    char curr_symb[ONE_CHAR_AND_STR_END];
     while ((*curr_symb = fgetc(graph_file)) != EOF)
     {
            Agnode_t *tail_node = agnode(g, curr_symb, TRUE);
@@ -44,6 +44,29 @@ int txt_to_png(GVC_t *gvc)
     }
     fclose(graph_file);
 
+    //creating an array which maintaining string names of visited nodes (names has length 2 - one character and \0)
+    char **visited = (char **)malloc(nodes_num_in_graph * sizeof(curr_symb));
+
+
+    //copied DFC code, raw
+    void DFS(struct Graph* graph, int vertex) {
+        struct node* adjList = graph->adjLists[vertex];
+        struct node* temp = adjList;
+
+        graph->visited[vertex] = 1;
+        printf("Visited %d \n", vertex);
+
+        while(temp!=NULL) {
+            int connectedVertex = temp->vertex;
+
+            if(graph->visited[connectedVertex] == 0) {
+                DFS(graph, connectedVertex);
+            }
+            temp = temp->next;
+        }
+    }
+
+   //just tested some features, code only for reference
     Agnode_t *n = NULL;
     n = agfstnode(g);
     for (int i = 0; i<2; i++) {
@@ -51,6 +74,8 @@ int txt_to_png(GVC_t *gvc)
         n = agnxtnode(g,n);
     }
 
+
+    //previous code
     gvLayout (gvc, g, "dot");
 
     char png_save_path[LONG_ENOUGH] = "./lists_of_edges_png/";
