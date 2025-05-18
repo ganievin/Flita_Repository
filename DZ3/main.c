@@ -4,13 +4,16 @@
 #include <string.h>
 #define TRUE 1
 #define FALSE 0
+#define NODES_NUMBER_IN_ONE_STRING 2
+#define LONG_ENOUGH 100
+#define LONG 50
 
 int txt_to_png(GVC_t *gvc)
 {
     Agraph_t *g = agopen("GRAPH", Agundirected, NULL);
 
-    char search_path[100];
-    char file_name[50];
+    char search_path[LONG_ENOUGH];
+    char file_name[LONG];
     FILE *graph_file = NULL;
 
     puts("\nenter file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window\n");
@@ -29,7 +32,7 @@ int txt_to_png(GVC_t *gvc)
             puts("No such file. Try again.\n");
     }
 
-    char curr_symb[2];
+    char curr_symb[NODES_NUMBER_IN_ONE_STRING];
     while ((*curr_symb = fgetc(graph_file)) != EOF)
     {
            Agnode_t *tail_node = agnode(g, curr_symb, TRUE);
@@ -41,9 +44,16 @@ int txt_to_png(GVC_t *gvc)
     }
     fclose(graph_file);
 
+    Agnode_t *n = NULL;
+    n = agfstnode(g);
+    for (int i = 0; i<2; i++) {
+        agsafeset(n, "color", "red", "");
+        n = agnxtnode(g,n);
+    }
+
     gvLayout (gvc, g, "dot");
 
-    char png_save_path[100] = "./lists_of_edges_png/";
+    char png_save_path[LONG_ENOUGH] = "./lists_of_edges_png/";
 
     strcat(png_save_path, file_name);
     strcat(png_save_path, ".png");
