@@ -53,7 +53,6 @@ node_st ** create_node_list (Agraph_t *g)
     return node_list;
 }
 
-//copied DFC code, raw, will use agnnodes(g) for node_num
 int DFS(Agraph_t* g, node_st **node_list, node_st *start_node)
 {
     int nodes_num = agnnodes(g);
@@ -110,7 +109,7 @@ int txt_to_png(GVC_t *gvc)
     char file_name[LONG];
     FILE *graph_file = NULL;
 
-    puts("\nENTER file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window:");
+    puts("ENTER file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window:");
     while(1)
     {
         scanf("%49s", file_name);
