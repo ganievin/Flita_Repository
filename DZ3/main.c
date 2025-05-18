@@ -8,24 +8,45 @@
 #define LONG_ENOUGH 100
 #define LONG 50
 
-//copied DFC code, raw
-void DFS(struct Graph* graph, int vertex) {
+
+//copied DFC code, raw, will use agnnodes(g) for node_num
+int Depth_first_search(Agraph_t* g, int nodes_num, Agnode_t* head_node) {
     //creating an array which maintaining string names of visited nodes (names has length 2 - one character and \0)
-    char **visited = (char **)malloc(nodes_num_in_graph * sizeof(curr_symb));
-    struct node* adjList = graph->adjLists[vertex];
-    struct node* temp = adjList;
+    //visit visited_arr[] = (visit *)malloc(nodes_num * sizeof(visit));
+    //for (int k = 0; k < nodes_num; k++)
+        //visited_arr[k] -> is_visited = FALSE;
+    int visited = 1; //already visited first_node
 
-    graph->visited[vertex] = 1;
-    printf("Visited %d \n", vertex);
-
-    while(temp!=NULL) {
-        int connectedVertex = temp->vertex;
-
-        if(graph->visited[connectedVertex] == 0) {
-            DFS(graph, connectedVertex);
-        }
-        temp = temp->next;
+    if (head_node == NULL)
+    {
+        head_node = agfstnode(g);
     }
+    //"head" and "tail" in context of the edges
+    Agnode_t *tail_node = agfstnode(g);
+
+    for (; head_node;) {
+        for (; tail_node;) {
+            if (agedge(g,head_node,tail_node,NULL,FALSE) && (head_node != tail_node))
+            {
+                visited += Depth_first_search(g, nodes_num, tail_node);
+                tail_node = agnxtnode(g, tail_node);
+            }
+            else
+            {
+                tail_node = agnxtnode(g, tail_node);
+            }
+        }
+        if (visited == nodes_num)
+        {
+            puts("graph is connected!");
+            return visited;
+        }
+        head_node = agnxtnode(g, head_node);
+    }
+    puts("graph is not connected");
+    return visited;
+    //RED COLORS BLABLA
+    //return NULL
 }
 
    /*just tested some features, code only for reference
@@ -70,6 +91,7 @@ int txt_to_png(GVC_t *gvc)
            agedge(g, tail_node, head_node, NULL, TRUE);
            fgetc(graph_file);//пропускаем ровно одну табул€цию в тесктовом файле
     }
+    Depth_first_search(g, agnnodes(g), agfstnode(g));
     fclose(graph_file);
 
     gvLayout (gvc, g, "dot");
@@ -92,4 +114,5 @@ int main(void)
     GVC_t *gvc = gvContext();
     while (txt_to_png(gvc));
     return (gvFreeContext(gvc));
+
 }
