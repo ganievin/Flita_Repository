@@ -13,12 +13,10 @@ int txt_to_png(GVC_t *gvc)
     char file_name[50];
     FILE *graph_file = NULL;
 
-    puts("\nenter file name without format (must be in 'lists_of_edges_txt' directory)\nor 'done' to terminate app window\n");
+    puts("enter file name without format (must be in 'lists_of_edges_txt' directory)\n");
     while(1)
     {
         scanf("%49s", file_name);
-        if (strcmp(file_name, "done") == 0)
-            return 0;
 
         snprintf(search_path, sizeof(search_path),"./lists_of_edges_txt/%s.txt", file_name);
         graph_file = fopen(search_path, "r");
@@ -39,6 +37,34 @@ int txt_to_png(GVC_t *gvc)
            agedge(g, tail_node, head_node, NULL, TRUE);
            fgetc(graph_file);//пропускаем ровно одну табул€цию в тесктовом файле
     }
+
+
+    char first_name[1];
+    Agnode_t *first_node = NULL;
+    char second_name[1];
+    Agnode_t *second_node = NULL;
+    while(1)
+    {
+        puts("enter two node names\n");
+
+        puts("first node name: ");
+        scanf("%1s", first_name);
+        first_node = agnode(g, first_name, FALSE);
+        puts("second node name: ");
+        scanf("%1s", second_name);
+        second_node = agnode(g, second_name, FALSE);
+
+        /*if (strcmp(file_name, "done") == 0)
+            return 0; */
+
+        if ((first_node != NULL) && (second_node != NULL))
+        {
+            agedge(g, first_node, second_node, NULL, TRUE);
+            break;
+        }
+        else
+            puts("\nNo such nodes. Try again.\n");
+    }
     fclose(graph_file);
 
     gvLayout (gvc, g, "dot");
@@ -50,8 +76,10 @@ int txt_to_png(GVC_t *gvc)
 
     gvRenderFilename (gvc, g, "png", png_save_path);
     gvFreeLayout(gvc, g);
-    agclose(g);
+
     printf("Rendered and saved as %s.png\n", file_name);
+
+    agclose(g);
     return 1;
 }
 
@@ -59,6 +87,6 @@ int txt_to_png(GVC_t *gvc)
 int main(void)
 {
     GVC_t *gvc = gvContext();
-    while (txt_to_png(gvc));
+    txt_to_png(gvc);
     return (gvFreeContext(gvc));
 }
