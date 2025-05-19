@@ -31,3 +31,19 @@
 
 1746293813 c:\users\redonnukes\flita_dz\dz1_folder\flita1\input checkers.c
 
+1747637982 source:c:\users\redonnukes\flita_dz\flita_repository\dz1_folder\flita1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	<limits.h>
+	<stdint.h>
+	"number representations.c"
+	"input checkers.c"
+
+1747637982 c:\users\redonnukes\flita_dz\flita_repository\dz1_folder\flita1\number representations.c
+	<math.h>
+	<float.h>
+
+1747637982 c:\users\redonnukes\flita_dz\flita_repository\dz1_folder\flita1\input checkers.c
+
