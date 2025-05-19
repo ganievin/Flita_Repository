@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="FLiTA_DZ2" />
+		<Option title="FLiTA_DZ4" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -36,8 +36,9 @@
 			<Add option="-static-libstdc++" />
 			<Add option="-static-libgcc" />
 			<Add option="-static" />
-			<Add library="../../../../../Downloads/windows_10_cmake_Release_Graphviz-12.2.1-win64/Graphviz-12.2.1-win64/lib/cgraph.lib" />
-			<Add library="../../../../../Downloads/windows_10_cmake_Release_Graphviz-12.2.1-win64/Graphviz-12.2.1-win64/lib/cdt.lib" />
+			<Add library="../../Downloads/windows_10_cmake_Release_Graphviz-12.2.1-win64/Graphviz-12.2.1-win64/lib/cdt.lib" />
+			<Add library="../../Downloads/windows_10_cmake_Release_Graphviz-12.2.1-win64/Graphviz-12.2.1-win64/lib/cgraph.lib" />
+			<Add library="../../Downloads/windows_10_cmake_Release_Graphviz-12.2.1-win64/Graphviz-12.2.1-win64/lib/gvc.lib" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
